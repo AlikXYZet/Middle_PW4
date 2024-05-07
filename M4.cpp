@@ -32,15 +32,16 @@ int main()
 		std::cin >> op;
 	} while (0 > op || op > 2);
 
-	int result = 0;
+	int (*pFcn)(int, int) = nullptr;
+
 	switch (op)
 	{
-	case 0: result = add(a, b); break;
-	case 1: result = subrtact(a, b); break;
-	case 2: result = multiply(a, b); break;
+	case 0: pFcn = add; break;
+	case 1: pFcn = subrtact; break;
+	case 2: pFcn = multiply; break;
 	}
 
-	std::cout << "The answer is: " << result << std::endl;
+	std::cout << "The answer is: " << pFcn(a, b) << std::endl;
 
 	return 0;
 }
