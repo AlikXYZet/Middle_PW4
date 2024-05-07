@@ -10,7 +10,7 @@ public:
 
 };
 
-class Scanner : public PoweredDevice
+class Scanner : virtual public PoweredDevice
 {
 public:
 	Scanner(int scanner, int power)
@@ -21,7 +21,7 @@ public:
 
 };
 
-class Printer : public PoweredDevice
+class Printer : virtual public PoweredDevice
 {
 public:
 	Printer(int printer, int power)
@@ -36,7 +36,7 @@ class Copier : public Scanner, public Printer
 {
 public:
 	Copier(int scanner, int printer, int power)
-		: Scanner(scanner, power), Printer(printer, power)
+		: Scanner(scanner, power), Printer(printer, power), PoweredDevice(power)
 	{
 	}
 
@@ -44,6 +44,7 @@ public:
 
 int main()
 {
+	Copier copier(1, 2, 3);
 
 	return 0;
 }
