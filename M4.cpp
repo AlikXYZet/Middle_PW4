@@ -9,7 +9,7 @@ public:
 class Child : public Parent
 {
 public:
-	virtual const char* getName() { return "Child"; }
+	const char* getName() override { return "Child"; }
 };
 
 
@@ -17,7 +17,7 @@ int main()
 {
 	Child child;
 	Parent& parent = child;
-	std::cout << parent.Parent::getName() << std::endl;
+	std::cout << parent./*Parent::*/getName() << std::endl;
 
 	return 0;
 }
