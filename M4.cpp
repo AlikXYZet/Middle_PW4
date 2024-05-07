@@ -10,7 +10,7 @@ protected:
 
 public:
 	std::string getName() { return m_name; }
-	virtual const char* speak() { return "???"; }
+	virtual const char* speak() = 0;
 };
 
 class Cat : public Animal
