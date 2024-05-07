@@ -3,7 +3,7 @@
 class Parent
 {
 public:
-	~Parent()
+	virtual ~Parent()
 	{
 		std::cout << "Calling ~Parent()" << std::endl;
 	}
