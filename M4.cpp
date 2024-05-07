@@ -3,36 +3,21 @@
 class Parent
 {
 public:
-	~Parent()
-	{
-		std::cout << "Calling ~Parent()" << std::endl;
-	}
+	virtual const char* getName() { return "Parent"; }
 };
 
 class Child : public Parent
 {
-private:
-	int* m_array;
-
 public:
-	Child(int length)
-	{
-		m_array = new int[length];
-	}
-
-	~Child()
-	{
-		std::cout << "Calling ~Child()" << std::endl;
-		delete[] m_array;
-	}
+	virtual const char* getName() { return "Child"; }
 };
 
 
 int main()
 {
-	Child* child = new Child(9);
-	Parent* parent = child;
-	delete parent;
+	Child child;
+	Parent& parent = child;
+	std::cout << parent.Parent::getName() << std::endl;
 
 	return 0;
 }
