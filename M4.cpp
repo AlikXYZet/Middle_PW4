@@ -37,21 +37,11 @@ Parent* getObject(bool bReturnChild)
 
 int main()
 {
-	Parent* p = getObject(false);
-	Child* chD = dynamic_cast<Child*>(p);
-	Child* chS = static_cast<Child*>(p);
+	Child banana(1, "apple");
+	Parent& par = banana;
+	Child& ref = dynamic_cast<Child&>(par);
 
-	if (chD)
-	{
-		std::cout << "The name of the Child is: " << chD->getName() << '\n';
-	}
-
-	if (chS)
-	{
-		std::cout << "The name of the Child is: " << chS->getName() << '\n';
-	}
-	
-	delete p;
+	std::cout << "The name of the Child is: " << ref.getName() << '\n';
 
 	return 0;
 }
