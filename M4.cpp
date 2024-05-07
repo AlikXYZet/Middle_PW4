@@ -10,7 +10,7 @@ public:
 	{
 	}
 
-	virtual const char* getName() { return "Parent"; }
+	virtual const char* getName() const { return "Parent"; }
 	int getValue() { return m_value; }
 };
 
@@ -21,7 +21,7 @@ public:
 	{
 	}
 
-	virtual const char* getName() { return "Child"; }
+	const char* getName() const override { return "Child"; }
 };
 
 
@@ -29,6 +29,9 @@ int main()
 {
 	Child child(5);
 	std::cout << "child Name: " << child.getName() << ";   Has value : " << child.getValue() << '\n';
+
+	Parent parent = child;
+	std::cout << "parent Name: " << parent.getName() << ";   Has value : " << parent.getValue() << '\n';
 
 	Child& ref = child;
 	std::cout << "ref Name: " << ref.getName() << ";   Has value : " << ref.getValue() << '\n';
