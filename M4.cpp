@@ -1,63 +1,32 @@
 #include <iostream>
 
-void foo(int& ref)
+class Parent
 {
-	ref = 10;
-}
+protected:
+	int m_value;
 
-void foo2(int* S)
-{
-	*S = 11;
-}
+public:
+	Parent(int value) : m_value(value)
+	{
+	}
 
-struct Something
-{
-	int value1 = 5;
-	float value2 = 6.2;
+	const char* getName() { return "Parent"; }
+	int getValue() { return m_value; }
 };
 
-struct Other
+class Child : public Parent
 {
-	Something something;
-	int otherValue;
+public:
+	Child(int value) : Parent(value)
+	{
+	}
+
+	const char* getName() { return "Child"; }
+	int getValue() { return m_value * 2; }
 };
 
-Other other;
 
 int main()
 {
-	int Seven = 7;
-	int& Ref = Seven;
 
-	std::cout << Ref << '\n';
-
-	Ref++;
-	Seven++;
-
-	std::cout << Seven << '\n';
-	std::cout << Ref << '\n';
-
-	const int SeventySeven = 77;
-	const int& Ref2 = SeventySeven;
-
-	int value1 = 8;
-	int value2 = 20;
-
-	std::cout << value1 << '\n';
-	std::cout << value2 << '\n';
-
-	foo(value1);
-	foo2(&value2);
-
-	std::cout << value1 << '\n';
-	std::cout << value2 << '\n';
-
-	int& ref1 = value1;
-	ref1 = value2;
-
-	std::cout << '\n';
-
-	int& refSomething = other.something.value1;
-	std::cout << other.something.value1 << '\n';
-	std::cout << refSomething << '\n';
 }
