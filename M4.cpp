@@ -6,12 +6,15 @@ class Parent
 public:
 	Parent() {}
 
-	virtual void print() const { std::cout << "Parent"; }
-
-	friend std::ostream& operator<<(std::ostream& out, const Parent& p)
+	virtual std::ostream& print(std::ostream& out) const
 	{
 		out << "Parent";
 		return out;
+	}
+
+	friend std::ostream& operator<<(std::ostream& out, const Parent& p)
+	{
+		return p.print(out);
 	}
 };
 
@@ -20,9 +23,7 @@ class Child : public Parent
 public:
 	Child() {}
 
-	virtual void print() const override { std::cout << "Child"; }
-
-	friend std::ostream& operator<<(std::ostream& out, const Child& p)
+	std::ostream& print(std::ostream& out) const override
 	{
 		out << "Child";
 		return out;
