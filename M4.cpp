@@ -38,6 +38,7 @@ public:
 		Clearance = clearance;
 	}
 
+	// Перегрузка print() для вывода "Дорожно просвета транспорта"
 	std::ostream& print(std::ostream& out) const override
 	{
 		out << "Ride height: " << Clearance;
@@ -57,6 +58,7 @@ public:
 		Diameter = diameter;
 	}
 
+	// Перегрузка operator<< для вывода "Диаметра Колеса"
 	friend std::ostream& operator<<(std::ostream& out, const Wheel& w)
 	{
 		out << w.Diameter << " ";
@@ -81,6 +83,7 @@ public:
 		Power = inPower;
 	}
 
+	// Перегрузка operator<< для вывода "Мощности Двигателя"
 	friend std::ostream& operator<<(std::ostream& out, const Engine& e)
 	{
 		out << e.Power << " ";
@@ -101,15 +104,19 @@ public:
 		wheels = new Wheel[2]{ wheel_1, wheel_2 };
 	}
 
+	// Перегрузка print() для "Велосипеда"
 	std::ostream& print(std::ostream& out) const
 	{
 		out << "Bicycle ";
+
+		// Вывод данных каждого из 2-х "Колес"
 		out << "Wheels: ";
 		for (size_t i = 0; i < 2; i++)
 		{
 			out << wheels[i];
 		}
 
+		// Вывод данных "Дорожного просвета"
 		RoadVehicle::print(out);
 
 		return out;
@@ -133,14 +140,19 @@ public:
 
 	std::ostream& print(std::ostream& out) const
 	{
-		out << "Bicycle ";
+		out << "Car ";
+
+		// Вывод данных "Мощности двигателя"
 		out << "Engine: " << engine;
+
+		// Вывод данных каждого из 4-х "Колес"
 		out << "Wheels: ";
 		for (size_t i = 0; i < 4; i++)
 		{
 			out << wheels[i];
 		}
 
+		// Вывод данных "Дорожного просвета"
 		RoadVehicle::print(out);
 
 		return out;
