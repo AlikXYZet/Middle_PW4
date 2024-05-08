@@ -36,6 +36,22 @@ public:
 
 };
 
+// Кдасс "Велосипед"
+class Bicycle : public RoadVehicle
+{
+private:
+	//Wheel wheel;
+};
+
+// Кдасс "Машина"
+class Car : public RoadVehicle
+{
+private:
+	//Wheel wheel;
+	//Engine engine;
+};
+
+
 int main()
 {
 	//Car c(Engine(150), Wheel(17), Wheel(17), Wheel(18), Wheel(18), 150);
