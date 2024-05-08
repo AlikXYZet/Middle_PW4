@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 class Parent
 {
@@ -31,16 +32,14 @@ void printName(const Parent parent)
 
 int main()
 {
-	Child child(5);
-	std::cout << "child Name: " << child.getName() << ";   Has value : " << child.getValue() << '\n';
+	std::vector<Parent> v;
+	v.push_back(Parent(9));
+	v.push_back(Child(10));
 
-	printName(child);
-
-	Parent& ref = child;
-	std::cout << "ref Name: " << ref.getName() << ";   Has value : " << ref.getValue() << '\n';
-
-	Parent* ptr = &child;
-	std::cout << "ptr Name: " << ptr->getName() << ";   Has value : " << ptr->getValue() << '\n';
+	for (int count = 0; count < v.size(); ++count)
+	{
+		std::cout << "I am a " << v[count].getName() << " with value " << v[count].getValue() << '\n';
+	}
 
 	return 0;
 }
