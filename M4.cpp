@@ -24,19 +24,22 @@ public:
 	const char* getName() const override { return "Child"; }
 };
 
+void printName(const Parent parent)
+{
+	std::cout << "I am a " << parent.getName() << '\n';
+}
 
 int main()
 {
 	Child child(5);
 	std::cout << "child Name: " << child.getName() << ";   Has value : " << child.getValue() << '\n';
 
-	Parent parent = child;
-	std::cout << "parent Name: " << parent.getName() << ";   Has value : " << parent.getValue() << '\n';
+	printName(child);
 
-	Child& ref = child;
+	Parent& ref = child;
 	std::cout << "ref Name: " << ref.getName() << ";   Has value : " << ref.getValue() << '\n';
 
-	Child* ptr = &child;
+	Parent* ptr = &child;
 	std::cout << "ptr Name: " << ptr->getName() << ";   Has value : " << ptr->getValue() << '\n';
 
 	return 0;
