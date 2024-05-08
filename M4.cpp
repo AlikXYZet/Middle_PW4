@@ -36,19 +36,33 @@ public:
 
 };
 
-// Кдасс "Велосипед"
+// Класс "Велосипед"
 class Bicycle : public RoadVehicle
 {
 private:
 	//Wheel wheel;
 };
 
-// Кдасс "Машина"
+// Класс "Машина"
 class Car : public RoadVehicle
 {
 private:
 	//Wheel wheel;
 	//Engine engine;
+};
+
+// Класс "Колесо"
+class Wheel
+{
+private:
+	float Diameter;
+};
+
+// Класс "Двигатель"
+class Engine
+{
+private:
+	float Power;
 };
 
 
