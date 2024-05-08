@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-// Класс "Транспорт"
+// Класс "Транспорт" [родительский класс]
 class Vehicle
 {
 private:
@@ -9,6 +9,12 @@ private:
 	std::string TypeVehicle = "Vehicle ";
 
 public:
+
+	virtual ~Vehicle()
+	{
+		std::cout << " ~Vehicle()\n";
+	}
+	
 	// Чистая виртуальная функция print() с параметром типа std::ostream
 	virtual std::ostream& print(std::ostream& out) const = 0;
 
@@ -19,68 +25,20 @@ public:
 		return out;
 	}
 
+	// Записи "Типа транспортного средства"
 	void SetType(std::string inType)
 	{
 		TypeVehicle = inType;
 	}
 };
 
-// Класс "Водный транспорт"
-class WaterVehicle : public Vehicle
-{
-private:
-	// Переменная-член "Осадка" (осадка водного транспорта)
-	float Draft;
-
-public:
-	WaterVehicle(float inDraft)
-	{
-		SetType("WaterVehicle ");
-		Draft = inDraft;
-	}
-
-	// Перегрузка print() для вывода "Осадка водного транспорта"
-	std::ostream& print(std::ostream& out) const override
-	{
-		out << "Draft: " << Draft;
-		return out;
-	}
-};
-
-// Класс "Дорожный транспорт"
-class RoadVehicle : public Vehicle
-{
-private:
-	// Переменная-член "Дорожный просвет" (он же клиренс)
-	float Clearance;
-
-public:
-	RoadVehicle(float inClearance)
-	{
-		SetType("RoadVehicle ");
-		Clearance = inClearance;
-	}
-
-	// Перегрузка print() для вывода "Дорожно просвета транспорта"
-	std::ostream& print(std::ostream& out) const override
-	{
-		out << "Ride height: " << Clearance;
-		return out;
-	}
-};
-
-// Класс "Колесо"
+// Класс "Колесо" [информационный класс]
 class Wheel
 {
 private:
 	float Diameter;
 
 public:
-	Wheel()
-	{
-		Diameter = 0;
-	}
-
 	Wheel(float inDiameter)
 	{
 		Diameter = inDiameter;
@@ -94,7 +52,7 @@ public:
 	}
 };
 
-// Класс "Двигатель"
+// Класс "Двигатель" [информационный класс]
 class Engine
 {
 private:
@@ -124,51 +82,105 @@ public:
 	}
 };
 
+// Класс "Водный транспорт"
+class WaterVehicle : public Vehicle
+{
+private:
+	// Переменная-член "Осадка" (осадка водного транспорта)
+	float Draft;
+
+public:
+	WaterVehicle(float inDraft)
+	{
+		SetType("WaterVehicle ");
+		Draft = inDraft;
+	}
+
+	~WaterVehicle()
+	{
+		std::cout << " ~WaterVehicle() ";
+	}
+
+	// Перегрузка print() для вывода "Осадка водного транспорта"
+	std::ostream& print(std::ostream& out) const override
+	{
+		out << "Draft: " << Draft;
+		return out;
+	}
+};
+
+// Класс "Дорожный транспорт"
+class RoadVehicle : public Vehicle
+{
+private:
+	// Переменная-член "Дорожный просвет" (он же клиренс)
+	float Clearance;
+
+protected:
+	std::vector<Wheel> wheels;
+
+public:
+	RoadVehicle(float inClearance)
+	{
+		SetType("RoadVehicle ");
+		Clearance = inClearance;
+	}
+
+	~RoadVehicle()
+	{
+		wheels.clear();
+		std::cout << " ~RoadVehicle() ";
+	}
+
+	// Перегрузка print() для вывода "Дорожно просвета транспорта"
+	std::ostream& print(std::ostream& out) const override
+	{
+		// Вывод данных каждого из "Колес@
+		out << "Wheels: ";
+		for (size_t i = 0; i < wheels.size(); i++)
+		{
+			out << wheels[i];
+		}
+
+		// Вывод данных "Дорожного просвета"
+		out << "Ride height: " << Clearance;
+		return out;
+	}
+};
+
 // Класс "Велосипед"
 class Bicycle : public RoadVehicle
 {
 private:
-	Wheel* wheels;
 
 public:
 	Bicycle(Wheel wheel_1, Wheel wheel_2, float inClearance)
 		: RoadVehicle(inClearance)
 	{
 		SetType("Bicycle ");
-		wheels = new Wheel[2]{ wheel_1, wheel_2 };
+		wheels.push_back(wheel_1);
+		wheels.push_back(wheel_2);
 	}
 
 	~Bicycle()
 	{
-		if (wheels)
-		{
-			delete[2] wheels;
-		}
+		std::cout << " ~Bicycle() ";
 	}
 
 	// Перегрузка print() для "Велосипеда"
 	std::ostream& print(std::ostream& out) const
 	{
-		// Вывод данных каждого из 2-х "Колес"
-		out << "Wheels: ";
-		for (size_t i = 0; i < 2; i++)
-		{
-			out << wheels[i];
-		}
-
 		// Вывод данных "Дорожного просвета"
 		RoadVehicle::print(out);
 
 		return out;
 	};
-
 };
 
 // Класс "Машина"
 class Car : public RoadVehicle
 {
 private:
-	Wheel* wheels;
 	Engine engine;
 
 public:
@@ -177,15 +189,15 @@ public:
 	{
 		SetType("Car ");
 		engine = inEngine;
-		wheels = new Wheel[4]{ wheel_1, wheel_2, wheel_3, wheel_4 };
+		wheels.push_back(wheel_1);
+		wheels.push_back(wheel_2);
+		wheels.push_back(wheel_3);
+		wheels.push_back(wheel_4);
 	}
 
 	~Car()
 	{
-		if (wheels)
-		{
-			delete[4] wheels;
-		}
+		std::cout << " ~Car() ";
 	}
 
 	// Перегрузка print() для "Машины"
@@ -193,13 +205,6 @@ public:
 	{
 		// Вывод данных "Мощности двигателя"
 		out << "Engine: " << engine;
-
-		// Вывод данных каждого из 4-х "Колес"
-		out << "Wheels: ";
-		for (size_t i = 0; i < 4; i++)
-		{
-			out << wheels[i];
-		}
 
 		// Вывод данных "Дорожного просвета"
 		RoadVehicle::print(out);
@@ -213,7 +218,7 @@ public:
 	}
 };
 
-// Класс "Точка" (Координаты)
+// Класс "Точка" (Координаты) [информационный класс]
 class Point
 {
 private:
@@ -241,14 +246,19 @@ public:
 class Circle : public Vehicle, Point
 {
 private:
-	Wheel wheel;
+	float Diameter;
 
 public:
 	Circle(Point inPoint, float inDiameter)
 		: Point(inPoint)
 	{
 		SetType("Circle ");
-		wheel = Wheel(inDiameter);
+		Diameter = inDiameter;
+	}
+
+	~Circle()
+	{
+		std::cout << " ~Circle() ";
 	}
 
 	// Перегрузка print() для "Круга"
@@ -256,7 +266,7 @@ public:
 	{
 		// Вывод данных
 		out << "Point: " << static_cast<Point>(*this);
-		out << "Wheel: " << wheel;
+		out << "Diameter: " << Diameter;
 
 		return out;
 	};
@@ -308,7 +318,14 @@ int main()
 	std::cout << "\nThe highest power is " << getHighestPower(v) << '\n'; // реализуйте эту функцию
 
 	// TODO: Удаление элементов вектора v здесь
+	std::cout << "\nThe Destructors Test:\n";
+	for (size_t i = 0; i < v.size(); i++)
+	{
+		delete v[i];
+	}
 	v.clear();
+
+	std::cout << "\n";
 
 	return 0;
 }
