@@ -5,14 +5,35 @@ class Vehicle
 {
 public:
 	// Чистая виртуальная функция print() с параметром типа std::ostream
-	virtual std::ostream& print(std::ostream& out) = 0;
+	virtual std::ostream& print(std::ostream& out) const = 0;
 
 	// Перегрузка operator<<
 	friend std::ostream& operator<<(std::ostream& out, const Vehicle& p)
 	{
-		out << "Vehicle";
-		return out;
+		return p.print(out);
 	}
+};
+
+// Класс "Водный транспорт"
+class WaterVehicle : public Vehicle
+{
+private:
+	// Переменная-член "Осадка" (осадка водного транспорта)
+	float Draft;
+
+public:
+
+};
+
+// Класс "Дорожный транспорт"
+class RoadVehicle : public Vehicle
+{
+private:
+	// Переменная-член "Дорожный просвет" (он же клиренс)
+	float Clearance;
+
+public:
+
 };
 
 int main()
