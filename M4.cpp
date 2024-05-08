@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 // Класс "Транспорт"
 class Vehicle
@@ -166,6 +167,25 @@ int main()
 
 	Bicycle t(Wheel(20), Wheel(20), 300);
 	std::cout << t << '\n';
+
+	std::cout << "\n\n";
+
+	std::vector<Vehicle*> v;
+
+	v.push_back(new Car(Engine(150), Wheel(17), Wheel(17), Wheel(18), Wheel(18), 250));
+
+	//v.push_back(new Circle(Point(1, 2, 3), 7));
+
+	v.push_back(new Car(Engine(200), Wheel(19), Wheel(19), Wheel(19), Wheel(19), 130));
+
+	//v.push_back(new WaterVehicle(5000));
+
+
+	// TODO: Вывод элементов вектора v здесь
+
+	//std::cout << "The highest power is" << getHighestPower(v) << '\n'; // реализуйте эту функцию
+
+	// TODO: Удаление элементов вектора v здесь
 
 	return 0;
 }
