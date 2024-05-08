@@ -1,32 +1,35 @@
 #include <iostream>
+#include <string>
 
 class Parent
 {
-protected:
-	int m_value;
-
 public:
-	Parent(int value) : m_value(value)
-	{
-	}
+	Parent() {}
 
-	const char* getName() { return "Parent"; }
-	int getValue() { return m_value; }
+	virtual void print() const { std::cout << "Parent"; }
 };
 
 class Child : public Parent
 {
 public:
-	Child(int value) : Parent(value)
-	{
-	}
+	Child() {}
 
-	const char* getName() { return "Child"; }
-	int getValue() { return m_value * 2; }
+	virtual void print() const override { std::cout << "Child"; }
 };
 
 
 int main()
 {
+	Child ch;
+	Parent& p = ch;
 
+	std::cout << "p is a ";
+	p.print();
+	std::cout << '\n';
+
+	std::cout << "ch is a ";
+	ch.print();
+	std::cout << '\n';
+
+	return 0;
 }
