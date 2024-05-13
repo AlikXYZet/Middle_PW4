@@ -76,9 +76,9 @@ public:
 		return out;
 	}
 
-	float GetPower()
+	float* GetPower()
 	{
-		return Power;
+		return &Power;
 	}
 };
 
@@ -137,7 +137,7 @@ public:
 	// Перегрузка print() для вывода "Дорожно просвета транспорта"
 	std::ostream& print(std::ostream& out) const override
 	{
-		// Вывод данных каждого из "Колес@
+		// Вывод данных каждого из "Колес"
 		out << "Wheels: ";
 		for (size_t i = 0; i < wheels.size(); i++)
 		{
@@ -216,7 +216,7 @@ public:
 
 	float GetPower()
 	{
-		return engine.GetPower();
+		return *engine.GetPower();
 	}
 };
 
